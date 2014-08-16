@@ -1,22 +1,123 @@
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
 }
 
-.clearfix:after {
-    clear: both;
+// Кнопка
+.button {
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.25;
+  vert-align: middle;
+  padding: 6px 20px;
+  background: #fff;
+  color: #00b285;
+  border: none;
+
+  &[disabled] {
+    background: #8adfce;
+  }
 }
 
-.clearfix {
-    *zoom: 1;
+// Текстовый инпут
+.text-input {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  height: 27px;
+  font-family: inherit;
+  font-weight: lighter;
+  text-overflow: ellipsis;
+
+  &::-webkit-input-placeholder {
+    color: #8adfce;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    color: #8adfce;
+    opacity: 1;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: #8adfce;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: #8adfce;
+  }
+}
+
+// Форма оплаты мобильной связи
+.mobile-pay {
+  padding: 10px 40px;
+  background: #00b285;
+
+  &__fields-row {
+    text-align: justify;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  &__tel, &__sum {
+    text-align: left;
+    display: inline-block;
+    margin: 0 0 15px;
+  }
+
+  &__tel {
+    margin-right: 20px;
+  }
+
+  &__label {
+    color: #fff;
+    font-size: 11px;
+    display: block;
+    margin: 0 0 20px;
+  }
+
+  &__controls {
+    text-align: center;
+    margin: 5px 0 0;
+  }
 }
 
 
-.foo {
-  box-shadow: 0 0 2px rgba(0,0,0,0);
-  
-  &__bar {
-    background: linear-gradient(to bottom, red, green);
+// Поле для номера телефона
+.tel-field {
+  font-size: 0;
+  white-space: nowrap;
+
+  &__global-code, &__country-code {
+    padding-right: 14px;
+    border-right: 1px solid #fff;
+    margin-right: 14px;
+    width: 1.3em;
+  }
+  &__country-code {
+    width: 1.8em;
+  }
+  &__number {
+    width: 6em;
+  }
+}
+
+// Поле суммы пополнения
+.sum-field {
+  &__sum {
+    text-align: right;
+    width: 3.8em;
+  }
+
+  &__curr {
+    color: #fff;
+    font-size: 15px;
   }
 }

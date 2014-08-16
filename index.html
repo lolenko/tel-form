@@ -15,27 +15,31 @@
 <body>
 
 <form class="mobile-pay">
-    <fieldset class="mobile-pay__tel">
-        <legend class="mobile-pay__label">Номер телефона</legend>
-        <p class="mobile-pay__tel-field tel-field">
-            <input class="tel-field__global-code text-input"
-                   type="tel" value="+7" placeholder="+7" tabindex="1" readonly />
-            <input class="tel-field__country-code text-input"
-                   type="tel" placeholder="123" tabindex="2" />
-            <input class="tel-field__number text-input"
-                   type="tel" placeholder="345-67-89" tabindex="3" />
-        </p>
-    </fieldset>
+    <div class="mobile-pay__fields-row">
+        <fieldset class="mobile-pay__tel">
+            <legend class="mobile-pay__label">Номер телефона</legend>
+            <p class="mobile-pay__tel-field tel-field">
+                <input class="tel-field__global-code text-input"
+                       type="tel" value="+7" placeholder="+7" tabindex="1" size="2" readonly />
+                <input class="tel-field__country-code text-input"
+                       type="tel" placeholder="123" tabindex="2" size="3" />
+                <input class="tel-field__number text-input"
+                       type="tel" placeholder="345-67-89" tabindex="3" size="9" />
+            </p>
+        </fieldset>
 
-    <fieldset class="mobile-pay__sum">
-        <legend class="mobile-pay__label">Сумма пополнения</legend>
-        <p class="mobile-pay__sum-field sum-field">
-            <input class="sum-field__sum text-input"
-                   type="tel" placeholder="0" tabindex="4" />
-            <span class="sum-field__curr">рублей</span>
-        </p>
-    </fieldset>
-    <button class="mobile-pay__submit button" type="submit" tabindex="5" disabled>Продолжить</button>
+        <fieldset class="mobile-pay__sum">
+            <legend class="mobile-pay__label">Сумма пополнения</legend>
+            <p class="mobile-pay__sum-field sum-field">
+                <input class="sum-field__sum text-input"
+                       type="tel" placeholder="0" tabindex="4" size="4" />
+                <span class="sum-field__curr">рублей</span>
+            </p>
+        </fieldset>
+    </div>
+    <p class="mobile-pay__controls">
+        <button class="mobile-pay__submit button" type="submit" tabindex="5" disabled>Продолжить</button>
+    </p>
 </form>
 
 

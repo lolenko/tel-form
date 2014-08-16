@@ -51,7 +51,7 @@ gulp.task('styles', function () {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
       'styles/*.less',
-      'styles/**/*.css'
+      'styles/*.css'
     ])
     .pipe($.changed('styles/dest', {extension: '.css'}))
     .pipe($.if('*.less', $.less()
