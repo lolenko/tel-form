@@ -1,0 +1,22 @@
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+.foo {
+  box-shadow: 0 0 2px rgba(0,0,0,0);
+  
+  &__bar {
+    background: linear-gradient(to bottom, red, green);
+  }
+}
