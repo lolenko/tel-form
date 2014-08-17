@@ -18,6 +18,8 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
         this.validator = this.params.validator;
         this.formatter = this.params.formatter;
         this._oldValue = this.value();
+        this.prevField = null;
+        this.nextField = null;
         this.attachEvents();
     };
 
@@ -31,20 +33,46 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
     TextField.prototype.onKeyDown = function(e) {
         switch (e.which) {
             case KEY_CODE.LEFT:
+                e.preventDefault();
+                this.focusPrev();
                 break;
             case KEY_CODE.RIGHT:
-                this.emit('readytoblur');
+                e.preventDefault();
+                this.focusNext();
                 break;
             case KEY_CODE.BACKSPACE:
                 if (this.value().length === 0) {
-
+                    this.focusPrev();
                 }
                 break;
         }
     };
 
-    TextField.prototype.focus = function() {
+    TextField.prototype.focusNext = function() {
+        if (this.nextField !== null) {
+            this.nextField.focus();
+            this.emit('blur');
+        }
+    };
+
+    TextField.prototype.focusPrev = function() {
+        if (this.prevField !== null) {
+            this.prevField.focus('left');
+            this.emit('blur');
+        }
+    };
+
+    TextField.prototype.focus = function(dir) {
+        if (this.$root.is('[disabled], [readonly]')) {
+            if (dir == 'left') {
+                this.focusPrev()
+            } else {
+                this.focusNext();
+            }
+            return;
+        }
         this.$root.focus();
+        this.emit('focus');
     };
 
     TextField.prototype.validate = function() {
@@ -52,6 +80,7 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
             case Validator.STATUSES.FULL:
                 this.$root.removeClass(this.params.invalidCSSClass);
                 this.emit('filled');
+                this.focusNext();
                 break;
             case Validator.STATUSES.PARTIAL:
                 this.$root.removeClass(this.params.invalidCSSClass);
@@ -91,6 +120,14 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
 
     TextField.prototype.name = function() {
         return this._name;
+    };
+
+    TextField.prototype.setNextField = function(field) {
+        this.nextField = field;
+    };
+
+    TextField.prototype.setPrevField = function(field) {
+        this.prevField = field;
     };
 
     return TextField;

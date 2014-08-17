@@ -17,6 +17,14 @@ define(function() {
         return this.fields.forEach(fn);
     };
 
+    AbstractForm.buildTabIndexQueue = function(fields) {
+        var len = fields.length;
+        fields.forEach(function(field, i) {
+            field.setNextField(fields[(i + 1) % len]);
+            field.setPrevField(fields[i - 1 < 0 ? len - 1 : i - 1]);
+        });
+    };
+
     AbstractForm.prototype.isValid = function() {
         var isValid = true;
         this.eachField(function(field) {
