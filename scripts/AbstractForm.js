@@ -18,10 +18,13 @@ define(function() {
     };
 
     AbstractForm.buildTabIndexQueue = function(fields) {
-        var len = fields.length;
         fields.forEach(function(field, i) {
-            field.setNextField(fields[(i + 1) % len]);
-            field.setPrevField(fields[i - 1 < 0 ? len - 1 : i - 1]);
+            if (fields[i + 1]) {
+                field.setNextField(fields[i + 1]);
+            }
+            if (fields[i - 1]) {
+                field.setPrevField(fields[i - 1]);
+            }
         });
     };
 

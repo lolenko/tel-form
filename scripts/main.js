@@ -32,6 +32,6 @@ require([
     var submitButton = new Button($('.mobile-pay__submit'));
 
     new AbstractForm('mobilePay', $('.mobile-pay'), [telField, sumField], submitButton);
-    AbstractForm.buildTabIndexQueue([areaCodeField, countryCodeField, telNumberField, sumField, submitButton]);
+    AbstractForm.buildTabIndexQueue([areaCodeField, countryCodeField, telNumberField, sumField]);
 
 });

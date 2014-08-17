@@ -1,11 +1,5 @@
 define(['EventEmitter', 'utils'], function(EventEmitter, utils) {
 
-    var KEY_CODE = {
-        LEFT: 37,
-        RIGHT: 39,
-        BACKSPACE: 8
-    };
-
     var Button = function($button) {
         this.$button = $button;
         this.prevField = null;

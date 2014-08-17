@@ -26,7 +26,7 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
     utils.inherits(TextField, EventEmitter);
     
     TextField.prototype.attachEvents = function() {
-        this.$root.on('keyup', this.processVal.bind(this));
+        //this.$root.on('keyup', this.processVal.bind(this));
         this.$root.on('keydown', this.onKeyDown.bind(this));
     };
 
@@ -42,8 +42,13 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
                 break;
             case KEY_CODE.BACKSPACE:
                 if (this.value().length === 0) {
+                    e.preventDefault();
                     this.focusPrev();
                 }
+                setTimeout(this.processVal.bind(this), 0);
+                break;
+            default:
+                setTimeout(this.processVal.bind(this), 0);
                 break;
         }
     };
