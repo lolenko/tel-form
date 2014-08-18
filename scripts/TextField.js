@@ -39,6 +39,11 @@ define([
     
     TextField.prototype.attachEvents = function() {
         this.$root.on('keydown', this.onKeyDown.bind(this));
+        this.$root.on('focus', this.patchFocus.bind(this));
+    };
+
+    TextField.prototype.patchFocus = function() {
+        this.$root.val(this.$root.val());
     };
 
     TextField.prototype.onKeyDown = function(e) {

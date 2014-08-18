@@ -1,13 +1,8 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
-
 // Кнопка
 .button {
   font-family: inherit;
-  font-size: 11px;
-  line-height: 1.25;
+  font-size: 12px;
+  line-height: 1.15;
   vert-align: middle;
   padding: 6px 20px;
   background: #fff;
@@ -27,10 +22,9 @@ body {
   padding: 0;
   margin: 0;
   color: #fff;
-  font-size: 28px;
-//  line-height: 1;
+  font-size: 35px;
   font-family: inherit;
-  font-weight: lighter;
+  font-weight: 100;
   text-overflow: ellipsis;
 
   &_invalid {
@@ -79,6 +73,7 @@ body {
   max-width: 800px;
   padding: 10px 40px;
   background: #00b285;
+  font-family: Roboto ,Arial, Helvetica, sans-serif;
 
   &__fields-row {
     text-align: justify;
@@ -102,7 +97,7 @@ body {
 
   &__label {
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     display: block;
     margin: 0 0 20px;
   }
@@ -119,15 +114,23 @@ body {
   font-size: 0;
   white-space: nowrap;
 
-  &__global-code, &__country-code {
-    padding-right: 14px;
-    border-right: 1px solid #fff;
-    margin-right: 14px;
+  &__separator {
+    font-size: 35px;
+    display: inline-block;
+    margin: 0 14px;
+    color: #fff;
+    font-weight: 100;
+    vert-align: supper;
+  }
+
+  &__global-code {
     width: 1.3em;
   }
+
   &__country-code {
     width: 1.8em;
   }
+
   &__number {
     width: 6em;
   }
@@ -135,6 +138,8 @@ body {
 
 // Поле суммы пополнения
 .sum-field {
+  font-size: 0;
+
   &__sum {
     text-align: right;
     width: 3.8em;
@@ -142,8 +147,10 @@ body {
 
   &__curr {
     color: #fff;
-    font-size: 15px;
+    font-size: 24px;
+    font-weight: 100;
     display: inline-block;
+    margin: 0 0 0 14px;
     width: 3.4em;
   }
 }
