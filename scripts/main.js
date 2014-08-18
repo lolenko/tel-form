@@ -17,7 +17,7 @@ require([
 ], function(AbstractForm, Button, TextField, TelField, SumField, Validator, Formatter) {
 
     var areaCodeField = new TextField('areaCode', $('.tel-field__global-code'), {
-        validator: new Validator(/^\s*(\+\s*7|8)\s*$/, /^\s*(\+?\s*7|8)\s*$/)
+        validator: new Validator(/^\s*(\+\s*7|8)\s*$/, /^\s*(\+?\s*7?|8)\s*$/)
     });
     var countryCodeField = new TextField('countryCode', $('.tel-field__country-code'), {
         validator: new Validator(/^\s*\d{3}\s*$/, /^\s*\d{1,3}\s*$/)

@@ -44,12 +44,16 @@ define([
     TextField.prototype.onKeyDown = function(e) {
         switch (e.which) {
             case KEY_CODE.LEFT:
-                e.preventDefault();
-                this.focusPrev();
+                if (this.getCaret() === 0) {
+                    e.preventDefault();
+                    this.focusPrev();
+                }
                 break;
             case KEY_CODE.RIGHT:
-                e.preventDefault();
-                this.focusNext();
+                if (this.getCaret() === this.value().length) {
+                    e.preventDefault();
+                    this.focusNext();
+                }
                 break;
             case KEY_CODE.BACKSPACE:
                 if (this.value().length === 0) {
@@ -144,6 +148,28 @@ define([
 
     TextField.prototype.setPrevField = function(field) {
         this.prevField = field;
+    };
+
+    TextField.prototype.getCaret = function() {
+        var el = this.$root[0];
+        if (el.selectionStart) {
+            return el.selectionStart;
+        } else if (document.selection) {
+            el.focus();
+
+            var r = document.selection.createRange();
+            if (r == null) {
+                return 0;
+            }
+
+            var re = el.createTextRange(),
+                rc = re.duplicate();
+            re.moveToBookmark(r.getBookmark());
+            rc.setEndPoint('EndToStart', re);
+
+            return rc.text.length;
+        }
+        return 0;
     };
 
     return TextField;

@@ -18,6 +18,7 @@ define(['jquery'], function($) {
         $plText.text(plText);
         var plCSS = {
             padding: $input.css('padding'),
+            margin: $input.css('margin'),
             borderWidth: $input.css('borderWidth'),
             lineHeight: $input.css('lineHeight'),
             verticalAlign: $input.css('verticalAlign'),
