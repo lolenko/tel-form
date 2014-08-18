@@ -1,5 +1,7 @@
 define(function() {
 
+    'use strict';
+
     var AbstractForm = function(name, $form, fields, submitButton) {
         this.name = name;
         this.$form = $form;

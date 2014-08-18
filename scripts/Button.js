@@ -1,5 +1,7 @@
 define(['EventEmitter', 'utils'], function(EventEmitter, utils) {
 
+    'use strict';
+
     var Button = function($button) {
         this.$button = $button;
         this.prevField = null;

@@ -1,5 +1,7 @@
 define(function() {
 
+    'use strict';
+
     var Validator = function(fullMatchRegEx, partialMatchRegEx) {
         this.fullMatchRegEx = fullMatchRegEx || /[\W\w]/;
         this.partialMatchRegEx = partialMatchRegEx || this.fullMatchRegEx;

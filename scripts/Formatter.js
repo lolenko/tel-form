@@ -1,12 +1,18 @@
 define(function() {
 
+    'use strict';
+
     var Formatter = function(regEx, repFn) {
-        this.regEx = regEx || /[\W\w]/;
-        this.repFn = repFn || function(val) { return val; };
+        this.regEx = regEx;
+        this.repFn = repFn;
     };
 
     Formatter.prototype.format = function(val) {
-        return val.replace(this.regEx, this.repFn);
+        if (this.regEx && this.repFn) {
+            return val.replace(this.regEx, this.repFn);
+        } else {
+            return val.trim();
+        }
     };
 
     return Formatter;

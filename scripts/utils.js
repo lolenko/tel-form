@@ -1,4 +1,7 @@
 define(function() {
+
+    'use strict';
+
     var inherits = function(ctor, superCtor) {
         ctor.super_ = superCtor;
         ctor.prototype = Object.create(superCtor.prototype);
@@ -8,4 +11,5 @@ define(function() {
     return {
         inherits: inherits
     };
+
 });

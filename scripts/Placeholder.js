@@ -1,5 +1,7 @@
 define(['jquery'], function($) {
 
+    'use strict';
+
     var Placeholder = function($input) {
         this.$input = $input;
         this.isVisible = true;

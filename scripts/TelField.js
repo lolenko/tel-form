@@ -1,5 +1,7 @@
 define(['EventEmitter', 'utils'], function(EventEmitter, utils) {
 
+    'use strict';
+
     var TelField = function (name, areaCodeField, countryCodeField, numberField) {
         this._name = name;
         this.areaCodeField = areaCodeField;

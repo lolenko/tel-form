@@ -5,6 +5,8 @@ define([
     'Formatter',
     'Placeholder'], function(utils, EventEmitter, Validator, Formatter, Placeholder) {
 
+    'use strict';
+
     var KEY_CODE = {
         LEFT: 37,
         RIGHT: 39,
