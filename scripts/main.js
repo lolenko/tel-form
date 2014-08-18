@@ -12,8 +12,9 @@ require([
     'TelField',
     'SumField',
     'Validator',
+    'Formatter',
     'jquery'
-], function(AbstractForm, Button, TextField, TelField, SumField, Validator) {
+], function(AbstractForm, Button, TextField, TelField, SumField, Validator, Formatter) {
 
     var areaCodeField = new TextField('areaCode', $('.tel-field__global-code'), {
         validator: new Validator(/^\s*(\+\s*7|8)\s*$/, /^\s*(\+?\s*7|8)\s*$/)
@@ -23,6 +24,7 @@ require([
     });
     var telNumberField = new TextField('telNumber', $('.tel-field__number'), {
         validator: new Validator(/^\s*\d{3}\s*-?\s*\d{2}\s*-?\s*\d{2}\s*$/, /^\s*\d{1,3}\s*-?\s*\d{0,2}\s*-?\s*\d{0,2}\s*$/)
+        //formatter: new Formatter(/^(\s*)\d{3}(\s*-?\s*)\d{2}(\s*-?\s*)\d{2}(\s*)$/, function() {})
     });
     var telField = new TelField('tel', areaCodeField, countryCodeField, telNumberField);
     var sumField = new SumField('sum', $('.sum-field__sum'), $('.sum-field__curr'), {

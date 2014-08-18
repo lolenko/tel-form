@@ -1,4 +1,9 @@
-define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, EventEmitter, Validator, Formatter) {
+define([
+    'utils',
+    'EventEmitter',
+    'Validator',
+    'Formatter',
+    'Placeholder'], function(utils, EventEmitter, Validator, Formatter, Placeholder) {
 
     var KEY_CODE = {
         LEFT: 37,
@@ -9,6 +14,7 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
     var TextField = function(name, $root, params) {
         this._name = name;
         this.$root = $root;
+        TextField.checkPlaceholder(this.$root);
         this.params = {
             validator: new Validator(),
             formatter: new Formatter(),
@@ -24,9 +30,14 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
     };
 
     utils.inherits(TextField, EventEmitter);
+
+    TextField.checkPlaceholder = function($input) {
+        if (!('placeholder' in document.createElement('input'))) {
+            new Placeholder($input);
+        }
+    };
     
     TextField.prototype.attachEvents = function() {
-        //this.$root.on('keyup', this.processVal.bind(this));
         this.$root.on('keydown', this.onKeyDown.bind(this));
     };
 
@@ -86,6 +97,7 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
                 this.$root.removeClass(this.params.invalidCSSClass);
                 this.emit('filled');
                 this.focusNext();
+                this.format();
                 break;
             case Validator.STATUSES.PARTIAL:
                 this.$root.removeClass(this.params.invalidCSSClass);
@@ -106,7 +118,6 @@ define(['utils', 'EventEmitter', 'Validator', 'Formatter'], function(utils, Even
     };
 
     TextField.prototype.processVal = function() {
-        //this.format();
         this.validate();
         if (this.value() != this._oldValue) {
             this.emit('change');
