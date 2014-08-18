@@ -1,0 +1,130 @@
+.button {
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.15;
+  vert-align: middle;
+  padding: 6px 20px;
+  background: #fff;
+  color: #00b285;
+  border: none;
+}
+.button[disabled] {
+  background: #8adfce;
+}
+.text-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 35px;
+  font-family: inherit;
+  font-weight: 100;
+  text-overflow: ellipsis;
+}
+.text-input_invalid {
+  color: #f00;
+}
+.text-input::-webkit-input-placeholder {
+  color: #8adfce;
+}
+.text-input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #8adfce;
+  opacity: 1;
+}
+.text-input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #8adfce;
+  opacity: 1;
+}
+.text-input:-ms-input-placeholder {
+  color: #8adfce;
+}
+.placeholder {
+  display: inline-block;
+  position: relative;
+}
+.placeholder__text {
+  color: #8adfce;
+  font-size: 28px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: text;
+}
+.mobile-pay {
+  max-width: 800px;
+  padding: 10px 40px;
+  background: #00b285;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+.mobile-pay__fields-row {
+  text-align: justify;
+}
+.mobile-pay__fields-row:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+.mobile-pay__tel,
+.mobile-pay__sum {
+  text-align: left;
+  display: inline-block;
+  margin: 0 0 15px;
+}
+.mobile-pay__tel {
+  margin-right: 20px;
+}
+.mobile-pay__label {
+  color: #fff;
+  font-size: 12px;
+  display: block;
+  margin: 0 0 20px;
+}
+.mobile-pay__controls {
+  text-align: center;
+  margin: 5px 0 0;
+}
+.tel-field {
+  font-size: 0;
+  white-space: nowrap;
+}
+.tel-field__separator {
+  font-size: 35px;
+  display: inline-block;
+  margin: 0 14px;
+  color: #fff;
+  font-weight: 100;
+  vert-align: supper;
+}
+.tel-field__global-code {
+  width: 1.3em;
+}
+.tel-field__country-code {
+  width: 1.8em;
+}
+.tel-field__number {
+  width: 6em;
+}
+.sum-field {
+  font-size: 0;
+}
+.sum-field__sum {
+  text-align: right;
+  width: 3.8em;
+}
+.sum-field__curr {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 100;
+  display: inline-block;
+  margin: 0 0 0 14px;
+  width: 3.4em;
+}
