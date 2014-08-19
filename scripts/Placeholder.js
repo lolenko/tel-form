@@ -28,16 +28,16 @@ define(['jquery'], function($) {
             borderColor: 'transparent'
         };
         $plText.css(plCSS);
+        this.$input.replaceWith($placeholder);
+        $placeholder.append($input);
         $placeholder.on('click', function() {
             $input.focus();
         });
         this.$input.on('keyup', this.check.bind(this));
-        this.$input.replaceWith($placeholder);
-        $placeholder.append($input);
     };
 
     Placeholder.prototype.check = function() {
-        if (this.$input.val().length && this.isVisible) {
+        if (this.$input.val().length) {
             this.hide();
         } else {
             this.show();
@@ -45,11 +45,17 @@ define(['jquery'], function($) {
     };
 
     Placeholder.prototype.hide = function() {
+        if (this.isVisible === false) {
+            return;
+        }
         this.$plText.hide();
         this.isVisible = false;
     };
 
     Placeholder.prototype.show = function() {
+        if (this.isVisible === true) {
+            return;
+        }
         this.$plText.show();
         this.isVisible = true;
     };

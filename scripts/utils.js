@@ -4,7 +4,9 @@ define(function() {
 
     var inherits = function(ctor, superCtor) {
         ctor.super_ = superCtor;
-        ctor.prototype = Object.create(superCtor.prototype);
+        var F = function() {};
+        F.prototype = superCtor.prototype;
+        ctor.prototype = new F();
         ctor.prototype.constructor = ctor;
     };
 
