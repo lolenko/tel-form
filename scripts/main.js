@@ -1,7 +1,7 @@
 require.config({
-    baseUrl: "/scripts",
+    baseUrl: "scripts",
     paths: {
-        jquery: '/scripts/vendor/jquery-1.10.2.min'
+        jquery: 'vendor/jquery-1.10.2.min'
     }
 });
 
