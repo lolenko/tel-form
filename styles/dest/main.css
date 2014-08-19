@@ -2,7 +2,7 @@
   font-family: inherit;
   font-size: 12px;
   line-height: 1.15;
-  vert-align: middle;
+  vertical-align: middle;
   padding: 6px 20px;
   background: #fff;
   color: #00b285;
@@ -103,7 +103,7 @@
   margin: 0 14px;
   color: #fff;
   font-weight: 100;
-  vert-align: supper;
+  vertical-align: supper;
 }
 .tel-field__global-code {
   width: 1.3em;
