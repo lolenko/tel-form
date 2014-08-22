@@ -25,7 +25,8 @@ require([
         validator: new Validator(/^\s*\d{3}\s*$/, /^\s*\d{1,3}\s*$/)
     });
     var telNumberField = new TextField('telNumber', $('.tel-field__number'), {
-        validator: new Validator(/^\s*\d{3}\s*-?\s*\d{2}\s*-?\s*\d{2}\s*$/, /^\s*\d{1,3}\s*-?\s*\d{0,2}\s*-?\s*\d{0,2}\s*$/)
+        validator: new Validator(/^\s*\d{3}-?\d{2}-?\d{2}\s*$/, /^\s*\d{1,3}-?\d{0,2}-?\d{0,2}\s*$/),
+        formatter: new Formatter(/^\s*(\d{3})-?(\d{2})-?(\d{2})\s*$/, '$1-$2-$3')
     });
     var telField = new TelField('tel', areaCodeField, countryCodeField, telNumberField);
     var sumField = new SumField('sum', $('.sum-field__sum'), $('.sum-field__curr'), {
@@ -35,6 +36,5 @@ require([
     var submitButton = new Button($('.mobile-pay__submit'));
 
     new AbstractForm('mobilePay', $('.mobile-pay'), [telField, sumField], submitButton);
-    AbstractForm.buildTabIndexQueue([areaCodeField, countryCodeField, telNumberField, sumField]);
 
 });

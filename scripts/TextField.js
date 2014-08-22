@@ -1,9 +1,9 @@
 define([
     'utils',
-    'EventEmitter',
+    'FormField',
     'Validator',
     'Formatter',
-    'Placeholder'], function(utils, EventEmitter, Validator, Formatter, Placeholder) {
+    'Placeholder'], function(utils, FormField, Validator, Formatter, Placeholder) {
 
     'use strict';
 
@@ -14,8 +14,8 @@ define([
     };
 
     var TextField = function(name, $root, params) {
+        FormField.call(this, $root)
         this._name = name;
-        this.$root = $root;
         TextField.checkPlaceholder(this.$root);
         this.params = {
             validator: new Validator(),
@@ -25,13 +25,12 @@ define([
         $.extend(this.params, params);
         this.validator = this.params.validator;
         this.formatter = this.params.formatter;
+        this.tabIndex = this.$root.attr('tabindex') || -1;
         this._oldValue = this.value();
-        this.prevField = null;
-        this.nextField = null;
         this.attachEvents();
     };
 
-    utils.inherits(TextField, EventEmitter);
+    utils.inherits(TextField, FormField);
 
     TextField.checkPlaceholder = function($input) {
         if (!('placeholder' in document.createElement('input'))) {
@@ -40,66 +39,12 @@ define([
     };
     
     TextField.prototype.attachEvents = function() {
-        this.$root.on('keydown', this.onKeyDown.bind(this));
+        this.on('change', this.processVal.bind(this));
         this.$root.on('focus', this.patchFocus.bind(this));
     };
 
     TextField.prototype.patchFocus = function() {
         this.$root.val(this.$root.val());
-    };
-
-    TextField.prototype.onKeyDown = function(e) {
-        switch (e.which) {
-            case KEY_CODE.LEFT:
-                if (this.getCaret() === 0) {
-                    e.preventDefault();
-                    this.focusPrev();
-                }
-                break;
-            case KEY_CODE.RIGHT:
-                if (this.getCaret() === this.value().length) {
-                    e.preventDefault();
-                    this.focusNext();
-                }
-                break;
-            case KEY_CODE.BACKSPACE:
-                if (this.value().length === 0) {
-                    e.preventDefault();
-                    this.focusPrev();
-                }
-                setTimeout(this.processVal.bind(this), 0);
-                break;
-            default:
-                setTimeout(this.processVal.bind(this), 0);
-                break;
-        }
-    };
-
-    TextField.prototype.focusNext = function() {
-        if (this.nextField !== null) {
-            this.nextField.focus();
-            this.emit('blur');
-        }
-    };
-
-    TextField.prototype.focusPrev = function() {
-        if (this.prevField !== null) {
-            this.prevField.focus('left');
-            this.emit('blur');
-        }
-    };
-
-    TextField.prototype.focus = function(dir) {
-        if (this.$root.is('[disabled], [readonly]')) {
-            if (dir == 'left') {
-                this.focusPrev()
-            } else {
-                this.focusNext();
-            }
-            return;
-        }
-        this.$root.focus();
-        this.emit('focus');
     };
 
     TextField.prototype.validate = function() {
@@ -119,6 +64,26 @@ define([
         }
     };
 
+    TextField.prototype.onKeyDown = function(e) {
+        switch (e.which) {
+            case KEY_CODE.LEFT:
+            case KEY_CODE.BACKSPACE:
+                if (this.getCaret() === 0) {
+                    e.preventDefault();
+                    this.focusPrev();
+                }
+                break;
+            case KEY_CODE.RIGHT:
+                if (this.getCaret() === this.value().length) {
+                    e.preventDefault();
+                    this.focusNext();
+                }
+                break;
+            default:
+                break;
+        }
+    };
+
     TextField.prototype.isValid = function() {
         return this.validator.validate(this.value()) === Validator.STATUSES.FULL;
     };
@@ -130,8 +95,8 @@ define([
 
     TextField.prototype.processVal = function() {
         this.validate();
+        //this.format();
         if (this.value() != this._oldValue) {
-            this.emit('change');
             this._oldValue = this.value()
         }
     };
@@ -149,35 +114,10 @@ define([
         return this._name;
     };
 
-    TextField.prototype.setNextField = function(field) {
-        this.nextField = field;
-    };
-
-    TextField.prototype.setPrevField = function(field) {
-        this.prevField = field;
-    };
-
     TextField.prototype.getCaret = function() {
-        var el = this.$root[0];
-        if (el.selectionStart) {
-            return el.selectionStart;
-        } else if (document.selection) {
-            el.focus();
-
-            var r = document.selection.createRange();
-            if (r == null) {
-                return 0;
-            }
-
-            var re = el.createTextRange(),
-                rc = re.duplicate();
-            re.moveToBookmark(r.getBookmark());
-            rc.setEndPoint('EndToStart', re);
-
-            return rc.text.length;
-        }
-        return 0;
+        return utils.getCaretPosition(this.$root[0]);
     };
+
 
     return TextField;
 
