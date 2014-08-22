@@ -21,9 +21,9 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
     utils.inherits(FormField, EventEmitter);
 
     FormField.prototype.dispatchEvents = function() {
-        this.$root.on('focus blur focusin focusout change input propertychange', (function(e) {
+        this.$root.on('focus blur focusin focusout change input propertychange cut paste', (function(e) {
             var type = e.type;
-            if (type == 'change' || type == 'input' || type == 'propertychange') {
+            if (type == 'change' || type == 'input' || type == 'propertychange' || type == 'cut' || type == 'paste') {
                 this.emit('change');
             } else {
                 this.emit(type);

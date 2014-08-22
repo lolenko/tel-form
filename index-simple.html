@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles/dest/reset.css">
+    <link rel="stylesheet" href="styles/dest/main.css">
+</head>
+<body>
+
+<form class="mobile-pay">
+    <div class="mobile-pay__fields-row">
+        <fieldset class="mobile-pay__tel">
+            <legend class="mobile-pay__label">Номер телефона</legend>
+            <p class="mobile-pay__tel-field tel-field">
+                <input class="tel-field__global-code text-input"
+                       type="tel" value="+7" placeholder="+7" tabindex="1" size="2" maxlength="2" />
+                <i class="tel-field__separator">|</i>
+                <input class="tel-field__country-code text-input"
+                       type="tel" placeholder="123" tabindex="2" size="3" maxlength="3" autofocus />
+                <i class="tel-field__separator">|</i>
+                <input class="tel-field__number text-input"
+                       type="tel" placeholder="345-67-89" tabindex="3" size="9" maxlength="9" />
+            </p>
+        </fieldset>
+
+        <fieldset class="mobile-pay__sum">
+            <legend class="mobile-pay__label">Сумма пополнения</legend>
+            <p class="mobile-pay__sum-field sum-field">
+                <input class="sum-field__sum text-input"
+                       type="tel" placeholder="0" tabindex="4" size="4" maxlength="4" />
+                <span class="sum-field__curr">рублей</span>
+            </p>
+        </fieldset>
+    </div>
+    <p class="mobile-pay__controls">
+        <button class="mobile-pay__submit button" type="submit" tabindex="5" disabled>Продолжить</button>
+    </p>
+</form>
+
+<script src="scripts/vendor/es5-shim.min.js"></script>
+<script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+</body>
+</html>

@@ -26,6 +26,7 @@ define([
         this.validator = this.params.validator;
         this.formatter = this.params.formatter;
         this.tabIndex = this.$root.attr('tabindex') || -1;
+        this.maxLength = this.$root.attr('maxlength') || Infinity;
         this._oldValue = this.value();
         this.attachEvents();
     };
@@ -94,6 +95,9 @@ define([
     };
 
     TextField.prototype.processVal = function() {
+        if (this.value().length == this.maxLength) {
+            this.focusNext();
+        }
         this.validate();
         //this.format();
         if (this.value() != this._oldValue) {
