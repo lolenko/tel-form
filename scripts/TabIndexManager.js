@@ -9,6 +9,7 @@ define(function() {
         TabIndexManager.instance = this;
 
         this.list = formFields || [];
+        this.sort();
     };
 
     TabIndexManager.compare = function(prevField, nextField) {

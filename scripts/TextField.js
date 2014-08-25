@@ -13,6 +13,18 @@ define([
         BACKSPACE: 8
     };
 
+    /**
+     * Конструктор текстового поля формы, конфигурируется необязательным
+     * валидатором и форматером
+     *
+     * @param {string} name - имя элемента формы
+     * @param {JQuery} $root - текстовый input или textarea
+     * @param [params] - другие необезательные параметры
+     * @param {Validator} [params.validator]
+     * @param {Formatter} [params.formatter]
+     * @constructor
+     */
+
     var TextField = function(name, $root, params) {
         FormField.call(this, $root)
         this._name = name;
@@ -27,11 +39,18 @@ define([
         this.formatter = this.params.formatter;
         this.tabIndex = this.$root.attr('tabindex') || -1;
         this.maxLength = this.$root.attr('maxlength') || Infinity;
-        this._oldValue = this.value();
+        this._value = this.$root.val();
         this.attachEvents();
     };
 
     utils.inherits(TextField, FormField);
+
+    /**
+     * В случае отсутствия реализации плейсхолдеров в браузере
+     * строит на текстовом поле полифил
+     *
+     * @param {JQuery} $input
+     */
 
     TextField.checkPlaceholder = function($input) {
         if (!('placeholder' in document.createElement('input'))) {
@@ -44,9 +63,20 @@ define([
         this.$root.on('focus', this.patchFocus.bind(this));
     };
 
+    /**
+     *  Перстовляет при фокусе курсор всегда в конец значения
+     */
+
     TextField.prototype.patchFocus = function() {
         this.$root.val(this.$root.val());
     };
+
+    /**
+     * Валидирует значения поля валидатором полученным
+     * при конфигурации конструктора
+     *
+     * @returns {TextField}
+     */
 
     TextField.prototype.validate = function() {
         switch (this.validator.validate(this.value())) {
@@ -63,12 +93,18 @@ define([
                 this.$root.addClass(this.params.invalidCSSClass);
                 break;
         }
+        return this;
     };
 
     TextField.prototype.onKeyDown = function(e) {
         switch (e.which) {
-            case KEY_CODE.LEFT:
             case KEY_CODE.BACKSPACE:
+                if (this.getCaret() === 0) {
+                    //e.preventDefault();
+                    this.focusPrev();
+                }
+                break;
+            case KEY_CODE.LEFT:
                 if (this.getCaret() === 0) {
                     e.preventDefault();
                     this.focusPrev();
@@ -81,35 +117,58 @@ define([
                 }
                 break;
             default:
+                if (this.value().length == this.maxLength) {
+                    this.focusNext();
+                }
                 break;
         }
     };
 
+    /**
+     * Возвращает флаг валидтости поля
+     *
+     * @returns {boolean}
+     */
+
     TextField.prototype.isValid = function() {
         return this.validator.validate(this.value()) === Validator.STATUSES.FULL;
     };
+
+    /**
+     * Форматирует значение поля форматтером полученным
+     * при конфигурации конструктора
+     *
+     * @returns {TextField}
+     */
 
     TextField.prototype.format = function() {
         this.value(this.formatter.format(this.value()));
         return this;
     };
 
+    /**
+     * Манипуляции со значением при каждом изменение
+     */
     TextField.prototype.processVal = function() {
-        if (this.value().length == this.maxLength) {
-            this.focusNext();
-        }
-        this.validate();
+        this._value = this.$root.val();
         //this.format();
-        if (this.value() != this._oldValue) {
-            this._oldValue = this.value()
-        }
+        this.validate();
     };
+
+    /**
+     * Устанавливает значение если передан аргумент
+     * иначе возвращает значение текстового поля
+     *
+     * @param {string} [val]
+     * @returns {(string|TextField)}
+     */
 
     TextField.prototype.value = function(val) {
         if (val == null) {
-            return this.$root.val();
+            return this._value;
         } else {
             this.$root.val(val);
+            this.processVal();
             return this;
         }
     };
@@ -117,6 +176,12 @@ define([
     TextField.prototype.name = function() {
         return this._name;
     };
+
+    /**
+     * Возврощает индекс положения текстового курсора
+     *
+     * @returns {number}
+     */
 
     TextField.prototype.getCaret = function() {
         return utils.getCaretPosition(this.$root[0]);

@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,13 +17,13 @@
         <fieldset class="mobile-pay__tel">
             <legend class="mobile-pay__label">Номер телефона</legend>
             <p class="mobile-pay__tel-field tel-field">
-                <input class="tel-field__global-code text-input"
+                <input class="tel-field__global-code text-input" name="areacode"
                        type="tel" value="+7" placeholder="+7" tabindex="1" size="2" maxlength="2" />
                 <i class="tel-field__separator">|</i>
-                <input class="tel-field__country-code text-input"
+                <input class="tel-field__country-code text-input" name="countrycode"
                        type="tel" placeholder="123" tabindex="2" size="3" maxlength="3" autofocus />
                 <i class="tel-field__separator">|</i>
-                <input class="tel-field__number text-input"
+                <input class="tel-field__number text-input" name="number"
                        type="tel" placeholder="345-67-89" tabindex="3" size="9" maxlength="9" />
             </p>
         </fieldset>
@@ -34,7 +31,7 @@
         <fieldset class="mobile-pay__sum">
             <legend class="mobile-pay__label">Сумма пополнения</legend>
             <p class="mobile-pay__sum-field sum-field">
-                <input class="sum-field__sum text-input"
+                <input class="sum-field__sum text-input" name="sum"
                        type="tel" placeholder="0" tabindex="4" size="4" maxlength="4" />
                 <span class="sum-field__curr">рублей</span>
             </p>
@@ -46,6 +43,36 @@
 </form>
 
 <script src="scripts/vendor/es5-shim.min.js"></script>
-<script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+<script src="scripts/vendor/jquery-1.10.2.min.js"></script>
+<script>
+    $(function() {
+        var $mobilePayForm = $('.mobile-pay');
+        console.log($mobilePayForm[0][0]);
+
+        var KEY_CODE = {
+            LEFT: 37,
+            RIGHT: 39,
+            BACKSPACE: 8
+        };
+
+        $mobilePayForm.on('keydown', '.text-input, .button', function(e) {
+/*
+            switch (e.which) {
+                case KEY_CODE.LEFT:
+                case KEY_CODE.BACKSPACE:
+                    e.preventDefault();
+                    this.focusPrev();
+                    break;
+                case KEY_CODE.RIGHT:
+                    e.preventDefault();
+                    this.focusNext();
+                    break;
+                default:
+                    break;
+            }
+*/
+        });
+    });
+</script>
 </body>
 </html>

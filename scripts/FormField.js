@@ -6,6 +6,16 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
         BACKSPACE: 8
     };
 
+    /**
+     * Конструктор поля формы - делегирует нажатие клавиш стрелок
+     * лево-право и бэкспэйса TabIndexManager'у,
+     * генерирует на экзэмляре событие change при любом изменении
+     * значения
+     *
+     * @param {JQuery} $root - Jquery обёртка над input, textarea, select или button
+     * @constructor
+     */
+
     var FormField = function($root) {
         if (!($root instanceof $ && $root.length === 1 && $root.is('input, textarea, select, button'))) {
             throw new TypeError('Аргумент $root должен быть Jquery обьектом с единственным элементом типа input, textarea, select или button')
@@ -31,16 +41,37 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
         }).bind(this));
     };
 
+    /**
+     * Фокусировка на элементе формы
+     *
+     * @returns {FormField}
+     */
+
     FormField.prototype.focus = function() {
         this.$root.focus();
+        return this;
     };
+
+    /**
+     * Фокусировка на следующем по tabindex'у элементе
+     *
+     * @returns {FormField}
+     */
 
     FormField.prototype.focusNext = function() {
         this.tim.nextFrom(this);
+        return this;
     };
+
+    /**
+     * Фокусировка на предыдущем по tabindex'у элементе
+     *
+     * @returns {FormField}
+     */
 
     FormField.prototype.focusPrev = function() {
         this.tim.prevFrom(this);
+        return this
     };
 
     FormField.prototype.getTabIndex = function() {
