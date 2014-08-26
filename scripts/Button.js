@@ -2,6 +2,14 @@ define(['FormField', 'utils'], function(FormField, utils) {
 
     'use strict';
 
+    /**
+     * Кнопка, по сути расширяет FormField и доопределяет пару свойственных
+     * только кнопкам методов, на данный момент пока только  disable/enable
+     *
+     * @param {JQuery} $button
+     * @constructor
+     */
+
     var Button = function($button) {
         FormField.call(this, $button);
     };
@@ -15,10 +23,11 @@ define(['FormField', 'utils'], function(FormField, utils) {
         } else {
             this.$root.attr("disabled", "disabled");
         }
+        return this;
     };
 
     Button.prototype.disable = function() {
-        this.enable(false);
+        return this.enable(false);
     };
 
     return Button;
