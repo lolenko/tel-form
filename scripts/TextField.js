@@ -168,7 +168,7 @@ define([
             return this._value;
         } else {
             this.$root.val(val);
-            this.processVal();
+            //this.processVal();
             return this;
         }
     };
