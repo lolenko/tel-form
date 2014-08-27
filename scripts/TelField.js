@@ -2,6 +2,17 @@ define(['EventEmitter', 'utils'], function(EventEmitter, utils) {
 
     'use strict';
 
+    /**
+     * Композиция трёх полей телефона
+     * реализует чать интерфейса TextField'а
+     *
+     * @param {string} name
+     * @param {TextField} areaCodeField
+     * @param {TextField} countryCodeField
+     * @param {TextField} numberField
+     * @constructor
+     */
+
     var TelField = function (name, areaCodeField, countryCodeField, numberField) {
         this._name = name;
         this.areaCodeField = areaCodeField;

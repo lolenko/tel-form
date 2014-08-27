@@ -18,6 +18,11 @@ require([
 
     'use strict';
 
+    /**
+     * Запускающий модуль. Строит поля телефонной формы и конфигурирует ими саму форму.
+     * Поля формы кофигурируются валидаторами и форматтерами
+     */
+
     var areaCodeField = new TextField('areaCode', $('.tel-field__global-code'), {
         validator: new Validator(/^\s*(\+\s*7|8)\s*$/, /^\s*(\+?\s*7?|8)\s*$/)
     });

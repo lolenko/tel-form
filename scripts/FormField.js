@@ -21,7 +21,7 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
             throw new TypeError('Аргумент $root должен быть Jquery обьектом с единственным элементом типа input, textarea, select или button')
         }
         this.$root = $root;
-        this.tabIndex = this.$root.attr('tabindex') || -1;
+        this.tabIndex = this.$root.attr('tabindex') || 0;
         this.dispatchEvents();
         this.$root.on('keydown', this.onKeyDown.bind(this));
         this.tim = new TabIndexManager();
@@ -74,6 +74,12 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
         return this
     };
 
+    /**
+     * Возвращает tabindex поля или 0 если не указан
+     *
+     * @returns {number}
+     */
+
     FormField.prototype.getTabIndex = function() {
         return this.tabIndex;
     };
@@ -81,6 +87,13 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
     FormField.prototype.isDisabled = function() {
         return this.$root.is('[disabled], [readonly]');
     };
+
+    /**
+     * Обработчик нажатия клавиши, если нажаты стрелки
+     * влево/вправо выполняет переход по tabindex'у
+     *
+     * @param {JQueryEvent} e
+     */
 
     FormField.prototype.onKeyDown = function(e) {
         switch (e.which) {

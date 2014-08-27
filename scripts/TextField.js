@@ -94,6 +94,17 @@ define([
         return this;
     };
 
+    /**
+     * Слушает нажатие служебнык клавиш,
+     * если нажата стрелка влево или backspace происходит фокусирока
+     * на предыдущее поле, если клавиша вправо - фокусировка на
+     * следующиее поле, при нажатии любой другой клавиши фокусировка
+     * перейдёт к следующемо полю если поле полностью заполненно.
+     * События keypress и keyup пройзойдут уже на следующем поле.
+     *
+     * @param {JQueryEvent} e
+     */
+
     TextField.prototype.onKeyDown = function(e) {
         switch (e.which) {
             case KEY_CODE.BACKSPACE:
@@ -174,6 +185,12 @@ define([
         }
     };
 
+    /**
+     * Возвращает имя поля
+     *
+     * @returns {string}
+     */
+
     TextField.prototype.name = function() {
         return this._name;
     };
@@ -187,7 +204,6 @@ define([
     TextField.prototype.getCaret = function() {
         return utils.getCaretPosition(this.$root[0]);
     };
-
 
     return TextField;
 
