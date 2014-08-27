@@ -85,7 +85,6 @@ define(['EventEmitter', 'utils', 'TabIndexManager'], function(EventEmitter, util
     FormField.prototype.onKeyDown = function(e) {
         switch (e.which) {
             case KEY_CODE.LEFT:
-            case KEY_CODE.BACKSPACE:
                 e.preventDefault();
                 this.focusPrev();
                 break;

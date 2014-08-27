@@ -10,7 +10,8 @@ define([
     var KEY_CODE = {
         LEFT: 37,
         RIGHT: 39,
-        BACKSPACE: 8
+        BACKSPACE: 8,
+        TAB: 9
     };
 
     /**
@@ -39,7 +40,6 @@ define([
         this.formatter = this.params.formatter;
         this.tabIndex = this.$root.attr('tabindex') || -1;
         this.maxLength = this.$root.attr('maxlength') || Infinity;
-        this._value = this.$root.val();
         this.attachEvents();
     };
 
@@ -60,7 +60,7 @@ define([
     
     TextField.prototype.attachEvents = function() {
         this.on('change', this.processVal.bind(this));
-        this.$root.on('focus', this.patchFocus.bind(this));
+        this.on('focus', this.patchFocus.bind(this));
     };
 
     /**
@@ -82,8 +82,6 @@ define([
         switch (this.validator.validate(this.value())) {
             case Validator.STATUSES.FULL:
                 this.$root.removeClass(this.params.invalidCSSClass);
-                this.emit('filled');
-                this.focusNext();
                 this.format();
                 break;
             case Validator.STATUSES.PARTIAL:
@@ -100,7 +98,7 @@ define([
         switch (e.which) {
             case KEY_CODE.BACKSPACE:
                 if (this.getCaret() === 0) {
-                    //e.preventDefault();
+                    e.preventDefault();
                     this.focusPrev();
                 }
                 break;
@@ -116,8 +114,11 @@ define([
                     this.focusNext();
                 }
                 break;
+            case KEY_CODE.TAB:
+                break;
             default:
                 if (this.value().length == this.maxLength) {
+                    //e.preventDefault();
                     this.focusNext();
                 }
                 break;
@@ -149,8 +150,8 @@ define([
     /**
      * Манипуляции со значением при каждом изменение
      */
+
     TextField.prototype.processVal = function() {
-        this._value = this.$root.val();
         //this.format();
         this.validate();
     };
@@ -165,7 +166,7 @@ define([
 
     TextField.prototype.value = function(val) {
         if (val == null) {
-            return this._value;
+            return this.$root.val();
         } else {
             this.$root.val(val);
             //this.processVal();
